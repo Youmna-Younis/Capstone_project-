@@ -17,29 +17,52 @@
 ## ✅ Task Checklist by Phase
 
 ### 📍 April 7 – Research & Exploration
-- [ ] Identify Gen AI applications in HR
-- [ ] Research multi-agent systems
-- [ ] Collect tools, datasets, and technologies
-- [ ] Document findings in shared workspace
+- [x] Identify Gen AI applications in HR  
+- [x] Research multi-agent systems  
+- [x] Collect tools, datasets, and technologies  
+- [x] Document findings in shared workspace  
 
 ---
 
 ### 📍 April 8 – Ideation & Planning
-- [ ] Conduct planning meeting
-- [ ] Define project scope and goals
-- [ ] Outline key features and limitations
-- [ ] Determine input/output for the assistant
-- [ ] Finalize technical stack and architecture
-- [ ] Assign roles and responsibilities
+- [x] Conduct planning meeting  
+- [x] Define project scope and goals  
+- [x] Outline key features and limitations  
+- [x] Determine input/output for the assistant  
+- [x] Finalize technical stack and architecture  
+- [x] Assign roles and responsibilities  
 
 ---
 
 ### 📍 April 9–11 – Initial Build
-- [ ] Set up development environment
-- [ ] Create resume parser agent
-- [ ] Create question generation agent
-- [ ] Create web research agent
-- [ ] Validate individual agent functionality
+- [x] Set up development environment
+
+### 🔹 Resume Parser Agent
+- [ ] Replace placeholder with actual resume parsing logic (skills, roles, projects)
+- [ ] Generate brief summarization about applicant  based on parsed resume
+- [ ] Return brief summarization list in clean structure (e.g., JSON)
+
+### 🔹 Interviewer Agent
+- [ ] Build question-answer loop (ask → record → follow-up if needed)
+- [ ] Handle multiple questions dynamically
+- [ ] Integrate voice input/output cleanly (handle retries if audio fails)
+- [ ] Save transcript (question + answer) to pass to evaluator
+
+### 🔹 Evaluator Agent
+- [ ] Analyze each response (clarity, relevance, confidence)
+- [ ] Score each question or provide a final score
+- [ ] Summarize strengths, weaknesses, and give **actionable feedback**
+- [ ] Return evaluation report in structured format
+
+### 🔹 Graph Improvements
+- [ ] Add memory (optional) or feedback loop for interviewer (if time allows)
+- [ ] Refactor state passing (resume → questions → responses → evaluation)
+- [ ] Add logging/debug support to test each node individually
+
+### 🔹 Optional Enhancements
+- [ ] Add Gemini model support (instead of OpenAI)
+- [ ] Design Streamlit UI or basic web interface for interaction
+- [ ] Save/export interview sessions as PDFs or JSON reports
 
 ---
 
