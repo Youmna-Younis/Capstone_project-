@@ -1,0 +1,4 @@
+Jane Doe
+Software Developer Intern at ABC Tech
+Skills: Python, React, APIs
+Education: BSc in Computer Engineering
