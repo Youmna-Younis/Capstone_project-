@@ -1,0 +1,21 @@
+# Core Libraries
+google-generativeai==0.5.2  # For interacting with Gemini API
+langgraph==0.0.19           # For managing conversational workflows
+PyPDF2==3.0.1               # For extracting data from PDF resumes
+pdfplumber==0.9.0           # Alternative library for PDF parsing
+python-dotenv==1.0.0        # For loading environment variables
+SpeechRecognition==3.10.0   # For speech-to-text functionality
+pyttsx3==2.90               # For text-to-speech functionality
+
+# Utilities and Helpers
+nltk==3.8.1                 # For natural language processing (optional)
+spacy==3.7.1                # For advanced NLP tasks (optional)
+textblob==0.15.3            # For sentiment analysis (optional)
+pandas==2.1.1               # For data manipulation (optional)
+
+# Logging and Debugging
+loguru==0.7.0               # Enhanced logging capabilities (optional)
+
+# Miscellaneous
+requests==2.31.0            # For making HTTP requests (optional)
+jsonschema==4.20.0          # For validating JSON schemas (optional)

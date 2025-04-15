@@ -1,14 +1,16 @@
 
-from openai import OpenAI
+# from openai import OpenAI
+#update code to use Gemini 
 import os
 import json
 import re
+from utils.gemini_utils import generate_response
 
 from utils.evaluation_state import EvaluationState  # ✅ import here
+from utils.state_schema import HRState
 
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
-def evaluate_responses(state):
+def evaluate_responses(state: HRState) -> HRState:
     responses = state["responses"]
     eval_state = state.get("evaluation_state", EvaluationState())
 
@@ -28,13 +30,14 @@ def evaluate_responses(state):
             }}
             """
 
-    response = client.chat.completions.create(
-        model="gpt-4",
-        messages=[{"role": "user", "content": prompt}],
-        temperature=0.3
-    )
+    # response = client.chat.completions.create(
+    #     model="gpt-4",
+    #     messages=[{"role": "user", "content": prompt}],
+    #     temperature=0.3
+    # )
 
-    content = response.choices[0].message.content
+    # content = response.choices[0].message.content
+    content = generate_response(prompt)
     json_block = re.search(r"\{.*\}", content, re.DOTALL)
     parsed = json.loads(json_block.group())
 

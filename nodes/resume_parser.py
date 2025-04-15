@@ -10,6 +10,9 @@ from utils.summary_generator import generate_summary
 from utils.interview_questions import get_static_interview_questions
 from utils.data_extractor import extract_data_from_pdf
 
+from utils.state_schema import HRState
+from graph_builder import  HRState
+
 # Load environment 
 load_dotenv()
 
@@ -18,7 +21,8 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 
 genai.configure(api_key=google_api_key)
 
-def parse_resume(state):
+def parse_resume(state) :
+    
     
     resume_file_path = state.get("resume")
     job_description = state.get("job_description")

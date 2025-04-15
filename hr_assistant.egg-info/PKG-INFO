@@ -1,0 +1,12 @@
+Metadata-Version: 2.2
+Name: hr_assistant
+Version: 0.1
+Requires-Dist: langgraph==0.3.21
+Requires-Dist: langchain-google-genai==2.1.2
+Requires-Dist: langgraph-prebuilt==0.1.7
+Requires-Dist: google-generativeai
+Requires-Dist: PyPDF2
+Requires-Dist: pdfplumber
+Requires-Dist: openai
+Requires-Dist: pytest
+Dynamic: requires-dist
