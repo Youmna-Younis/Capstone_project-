@@ -1,10 +1,10 @@
-import sys
+mport sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from nodes.resume_parser import parse_resume
+from ..nodes.resume_parser import parse_resume
 from langgraph.graph import StateGraph, START, END
-from utils.state_schema import ResumeParsingState
+from ..utils.state_schema import ResumeParsingState
 
 def test_parse_resume():
     initial_state = {

@@ -1,22 +1,57 @@
+import json
 def generate_summary(extracted_data):
-    # Get technical skills, default to empty list if not available
-    technical_skills = ', '.join(extracted_data.get('technical_skills', []))
-    if not technical_skills:
-        technical_skills = "No technical skills listed"
-    
-    # Get employment details, default to empty list if not available
-    employment_details = ', '.join([job['role'] for job in extracted_data.get('employment_details', [])])
-    if not employment_details:
-        employment_details = "No work experience listed"
+    # Step 1: Validate and sanitize the input data
+    if not isinstance(extracted_data, dict):
+        return "Invalid input: extracted_data must be a dictionary."
 
-    # Get soft skills, default to empty list if not available
-    soft_skills = ', '.join(extracted_data.get('soft_skills', []))
-    if not soft_skills:
-        soft_skills = "No soft skills listed"
+    # Helper function to safely access nested fields
+    def safe_get(data, key, default="Not provided"):
+        value = data.get(key, default)
+        return value if value else default
 
-    # Generate summary
-    summary = f"Applicant {extracted_data.get('full_name', 'No name provided')} is skilled in {technical_skills}. "
-    summary += f"They have experience in roles such as {employment_details}. "
-    summary += f"Their soft skills include {soft_skills}."
-    
-    return summary
+    # Step 2: Dynamically extract and format fields
+    summary_parts = []
+
+    # Add full name (if available)
+    full_name = safe_get(extracted_data, "full_name", "No name provided")
+    summary_parts.append(f"Applicant: {full_name}")
+
+    # Add contact information (email, phone, LinkedIn, GitHub)
+    contact_info = []
+    for field in ["email", "phone", "linkedin", "github"]:
+        value = safe_get(extracted_data, field, "Not provided")
+        contact_info.append(f"{field.capitalize()}: {value}")
+    if contact_info:
+        summary_parts.append("Contact Information:")
+        summary_parts.extend([f"  {info}" for info in contact_info])
+
+    # Add professional summary (if available)
+    summary_text = safe_get(extracted_data, "summary", "No summary provided")
+    summary_parts.append(f"Summary: {summary_text}")
+
+    # Dynamically process other fields
+    for key, value in extracted_data.items():
+        if key in ["full_name", "email", "phone", "linkedin", "github", "summary"]:
+            continue  # Skip already processed fields
+
+        if isinstance(value, list):
+            # Handle lists (e.g., certifications, projects)
+            formatted_list = ", ".join(map(str, value)) if value else "None listed"
+            summary_parts.append(f"{key.capitalize()}: {formatted_list}")
+
+        elif isinstance(value, dict):
+            # Handle nested dictionaries (e.g., skills, education)
+            nested_parts = []
+            for sub_key, sub_value in value.items():
+                if isinstance(sub_value, list):
+                    sub_value = ", ".join(sub_value) if sub_value else "None listed"
+                nested_parts.append(f"{sub_key.capitalize()}: {sub_value}")
+            summary_parts.append(f"{key.capitalize()}:")
+            summary_parts.extend([f"  {part}" for part in nested_parts])
+
+        else:
+            # Handle simple key-value pairs
+            summary_parts.append(f"{key.capitalize()}: {value}")
+
+    # Step 3: Combine all parts into a single summary string
+    return "\n".join(summary_parts)

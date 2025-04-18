@@ -8,58 +8,89 @@ import logging
 from utils.compatibility_checker import check_compatibility
 from utils.summary_generator import generate_summary
 from utils.interview_questions import get_static_interview_questions
-from utils.data_extractor import extract_data_from_pdf
+from utils.data_extractor import Extract_data_from_pdf
+from utils.state_schema import ResumeParsingState
+from utils.gemini_utils import generate_response
 
-from utils.state_schema import HRState
-from graph_builder import  HRState
+# # Load environment 
+# load_dotenv()
 
-# Load environment 
-load_dotenv()
+# # Load the Google API key from the environment
+# google_api_key = os.getenv("GOOGLE_API_KEY")
 
-# Load the Google API key from the environment
-google_api_key = os.getenv("GOOGLE_API_KEY")
 
-genai.configure(api_key=google_api_key)
-
-def parse_resume(state) :
-    
-    
+def parse_resume(state: ResumeParsingState) -> ResumeParsingState:
+    # Extract required fields from the state
     resume_file_path = state.get("resume")
     job_description = state.get("job_description")
 
+    # Validate input
     if not resume_file_path or not job_description:
-        return json.dumps({"error": "Resume file path or job description is missing"})
+        print("Validation failed: Missing resume file path or job description.")
+        return {
+            **state,
+            "error": "Resume file path or job description is missing",
+            "stage": "error"
+        }
 
     try:
         # Step 1: Extract data from the resume (PDF file)
-        extracted_data = extract_data_from_pdf(resume_file_path)
+        print("Step 1: Extracting data from the resume...")
+        extracted_data = Extract_data_from_pdf(resume_file_path)
+        print(f"Extracted data: {extracted_data}")
+
+        # Step 2: Check compatibility and extract data using the Gemini model
+        print("Step 2: Checking compatibility with the job description...")
+        compatibility_data = check_compatibility(extracted_data, job_description)
+        print(f"Compatibility data: {compatibility_data}")
+
+        if "error" in compatibility_data:
+            print("Error detected in compatibility data.")
+            return {
+                **state,
+                "error": compatibility_data["error"],
+                "details": compatibility_data["details"],
+                "stage": "error"
+            }
+
+        # Step 3: Generate a brief summary of the applicant
+        print("Step 3: Generating summary...")
+        summary = generate_summary(extracted_data)
+        print(f"Generated summary: {summary}")
+
+        # Step 4: Get static interview questions
+        print("Step 4: Fetching static interview questions...")
+        static_questions = get_static_interview_questions()
+        print(f"Static interview questions: {static_questions}")
+
+        # Step 5: Combine static questions with dynamic questions from the resume and job description
+        print("Step 5: Combining static and dynamic interview questions...")
+        dynamic_questions = compatibility_data.get("interview_questions", [])
+        all_interview_questions = static_questions + dynamic_questions
+        print(f"All interview questions: {all_interview_questions}")
+
+        # Step 6: Update the state with the parsed data
+        print("Step 6: Updating state with parsed data...")
+        updated_state = {
+            **state,
+            "extracted_data": extracted_data,
+            "compatibility_check": compatibility_data.get("compatibility_check", ""),
+            "summary": summary,
+            "interview_questions": all_interview_questions,
+            "stage": "ready_for_hr"
+        }
+        print(f"Updated state: {updated_state}")
+        return updated_state
+
     except Exception as e:
+        # Log the error for debugging purposes
+        print(f"Exception occurred: {str(e)}")
         logging.error(f"Error extracting data from resume: {str(e)}")
-        return json.dumps({"error": "Failed to extract resume data", "details": str(e)})
 
-    # Step 2: Check compatibility and extract data using the Gemini model
-    compatibility_data = check_compatibility(resume_file_path, job_description, google_api_key)
-
-    if "error" in compatibility_data:
-        return json.dumps({"error": compatibility_data["error"], "details": compatibility_data["details"]})
-
-    # Step 3: Generate a brief summary of the applicant
-    summary = generate_summary(extracted_data)
-
-    # Step 4: Get static interview questions
-    static_questions = get_static_interview_questions()
-
-    # Step 5: Combine static questions with dynamic questions from the resume and job description
-    dynamic_questions = compatibility_data.get("interview_questions", [])
-    all_interview_questions = static_questions + dynamic_questions
-
-    # Step 6: Format output into a structured JSON response
-    response = {
-        "compatibility_check": compatibility_data["compatibility_check"],
-        "extracted_data": extracted_data,
-        "summary": summary,
-        "interview_questions": all_interview_questions
-    }
-
-    # Return the final response as JSON
-    return json.dumps(response, indent=4)
+        # Return an error response
+        return {
+            **state,
+            "error": "Failed to extract resume data",
+            "details": str(e),
+            "stage": "error"
+        }
