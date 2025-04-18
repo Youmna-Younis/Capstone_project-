@@ -1,4 +1,5 @@
 from nodes.resume_parser import parse_resume
+from nodes.Interview_Preparation import prepare_interview_context
 def chatbot_main(resume: str, job_description: str):
     # Initial state
     initial_state = {
@@ -11,7 +12,12 @@ def chatbot_main(resume: str, job_description: str):
     state = parse_resume(initial_state)
     if state["stage"] == "error":
         print("Error during resume parsing:", state.get("error"))
-    #     return
+        return
+        # Step 2: Prepare interview context
+    state = prepare_interview_context(state)
+    if state["stage"] == "error":
+        print("Error during interview preparation:", state.get("error"))
+        return
 
     # # Conduct interview
     # state = interviewer_node(state)

@@ -12,6 +12,7 @@
 
 from typing_extensions import TypedDict
 from typing import Optional, List, Dict
+from typing import Dict, List, Optional, TypedDict
 
 class BaseState(TypedDict):
     resume: str
@@ -26,3 +27,12 @@ class ResumeParsingState(BaseState):
     compatibility_check: Optional[str]
     summary: Optional[str]
     interview_questions: List[str]
+
+class InterviewPreparationState(ResumeParsingState):
+    llm_context: Optional[str]  # Context provided to the LLM for conducting the interview
+
+class InterviewState(InterviewPreparationState):
+    conversation_history: List[Dict[str, str]]  # Tracks the conversation as {"role": "user/llm", "message": "text"}
+
+class FeedbackState(InterviewState):
+    evaluation: Optional[Dict[str, str]]  # Stores evaluation results
