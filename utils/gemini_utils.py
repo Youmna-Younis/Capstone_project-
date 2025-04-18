@@ -6,7 +6,7 @@ API_KEY = GEMINI_API_KEY
 genai.configure(api_key=API_KEY)
 # Initialize the Gemini model
 model = genai.GenerativeModel('gemini-2.0-flash')
-
+# 
 
 def generate_response(prompt):
     """
