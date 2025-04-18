@@ -5,7 +5,7 @@ import logging
 from utils.state_schema import InterviewState
 from utils.state_schema  import InterviewPreparationState
 
-from utils.gemini_utils import model
+from utils.gemini_utils import Generate_response
 def conduct_interview(state: InterviewPreparationState) -> InterviewState:
     llm_context = state.get("llm_context", "")
     conversation_history = []
@@ -24,28 +24,33 @@ def conduct_interview(state: InterviewPreparationState) -> InterviewState:
         Generate the next question or response for the candidate.
         If the interview is complete, respond with "END".
         """
-        chat=model.start_chat()   
-        # response = chat.send_message(
-        #     messages=[{"role": "user", "content": prompt}],
-        #     temperature=0.7
-        # )
+        # chat=model.start_chat()   
+        # # response = chat.send_message(
+        # #     messages=[{"role": "user", "content": prompt}],
+        # #     temperature=0.7
+        # # )
 
-        # llm_message = response.choices[0].message.content.strip()
+        # # llm_message = response.choices[0].message.content.strip()
 
-        # if llm_message == "END":
-        #     break
+        # # if llm_message == "END":
+        # #     break
 
-        # # Display the LLM's message
-        # print(f"\nLLM: {llm_message}")
-        response = chat.send_message(            
-                                   prompt,
-                            generation_config={
-                               "temperature": 0.6
+        # # # Display the LLM's message
+        # # print(f"\nLLM: {llm_message}")
+        # response = chat.send_message(            
+        #                            prompt,
+        #                     generation_config={
+        #                        "temperature": 0.6
 
-                                                })
-        response = chat.send_message(prompt)
-        llm_message = response.text.strip()
+        #                                         })
+        # response = chat.send_message(prompt)
+        config={ "temperature":0.7}
+        llm_message=Generate_response(prompt,config)
+        if llm_message == "END":
+            break
 
+        # Display the LLM's message
+        print(f"\nLLM: {llm_message}")
         # Collect the user's response
         user_response = input("Candidate's Response: ").strip()
         Questions.append(llm_message)

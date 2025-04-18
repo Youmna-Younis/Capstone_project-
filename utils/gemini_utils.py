@@ -26,3 +26,15 @@ def generate_response(prompt):
 
     # response = model.generate_content(prompt)
     return response.text.strip()
+def Generate_response(prompt,config):
+    """
+    Generates a response using Gemini.
+    """
+    response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents=prompt,
+    config=config
+    )
+
+    # response = model.generate_content(prompt)
+    return response.text.strip()
