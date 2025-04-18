@@ -1,18 +1,38 @@
-from graph_builder import build_graph
-
-if __name__ == "__main__":
-    # Build the workflow
-    workflow = build_graph()
-
-    # Define the initial state
+from nodes.resume_parser import parse_resume
+def chatbot_main(resume: str, job_description: str):
+    # Initial state
     initial_state = {
-        "resume": "/workspaces/Capstone_project-/data/candidate_resume.txt",  
-        "job_description": "Looking for a Python developer with expertise in Machine Learning and Data Analysis."
+        "resume": resume,
+        "job_description": job_description,
+        "stage": "start"
     }
 
-    # Run the workflow using .invoke()
-    final_state = workflow.invoke(initial_state)
+    # Parse resume
+    state = parse_resume(initial_state)
+    if state["stage"] == "error":
+        print("Error during resume parsing:", state.get("error"))
+    #     return
 
-    # Print the results
-    print("Candidate Responses:", final_state.get("responses", []))
-    print("Evaluation Results:", final_state.get("evaluation_results", {}))
+    # # Conduct interview
+    # state = interviewer_node(state)
+    # if state["stage"] == "error":
+    #     print("Error during interview process:", state.get("error"))
+    #     return
+
+    # # Generate feedback
+    # state = feedback_node(state)
+    # if state["stage"] == "error":
+    #     print("Error during feedback generation:", state.get("error"))
+    #     return
+
+    # # Final Output
+    # print("\nInterview Complete!")
+    # print("Feedback:")
+    # print(state["feedback"])
+
+
+if __name__ == "__main__":
+    resume = "/workspaces/Capstone_project-/data/resumeSample.pdf"
+    job_description = "Senior Software Engineer with expertise in Python and AI."
+
+    chatbot_main(resume, job_description)
