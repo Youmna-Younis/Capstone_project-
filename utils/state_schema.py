@@ -13,6 +13,8 @@
 from typing_extensions import TypedDict
 from typing import Optional, List, Dict
 from typing import Dict, List, Optional, TypedDict
+from typing import Annotated
+from langgraph.graph.message import add_messages
 
 class BaseState(TypedDict):
     resume: str
@@ -21,6 +23,8 @@ class BaseState(TypedDict):
     stage: Optional[str]
     error: Optional[str]
     details: Optional[str]
+    messages: Annotated[list, add_messages]
+
 
 class ResumeParsingState(BaseState):
     extracted_data: Dict[str, str]
@@ -29,10 +33,17 @@ class ResumeParsingState(BaseState):
     interview_questions: List[str]
 
 class InterviewPreparationState(ResumeParsingState):
-    llm_context: Optional[str]  # Context provided to the LLM for conducting the interview
+    llm_context: str  # Context provided to the LLM for conducting the interview
 
 class InterviewState(InterviewPreparationState):
    # conversation_history: List[Dict[str, str]]  # Tracks the conversation as {"role": "user/llm", "message": "text"}
+    
+     # The chat conversation. This preserves the conversation history
+    # between nodes. The `add_messages` annotation indicates to LangGraph
+    messages: Annotated[list, add_messages]
+    llm_context: str
+    # Flag indicating that the interview is completed.
+    finished: bool
     Questions:List[str]
     Candidate_Response:List[str]
 

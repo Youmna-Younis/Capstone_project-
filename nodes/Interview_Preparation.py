@@ -1,11 +1,12 @@
 
 import os
 import json
-import google.generativeai as genai
+# import google.generativeai as genai
 import logging
 
 from utils.state_schema import ResumeParsingState
 from utils.state_schema import InterviewPreparationState
+from utils.state_schema import BaseState
 
 def prepare_interview_context(state: ResumeParsingState) -> InterviewPreparationState:
     # Extract relevant fields
@@ -30,5 +31,7 @@ def prepare_interview_context(state: ResumeParsingState) -> InterviewPreparation
     return {
         **state,
         "llm_context": llm_context,
+        "messages": [],
+
         "stage": "ready_for_interview"
     }

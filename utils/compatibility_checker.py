@@ -1,4 +1,4 @@
-import google.generativeai as genai
+# import google.generativeai as genai
 import json
 
 from utils.gemini_utils import generate_response

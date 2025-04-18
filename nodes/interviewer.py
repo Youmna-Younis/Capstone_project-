@@ -1,6 +1,5 @@
 import os
 import json
-import google.generativeai as genai
 import logging
 
 from utils.state_schema import InterviewState

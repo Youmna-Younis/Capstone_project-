@@ -3,7 +3,7 @@
 import os
 import json
 from dotenv import load_dotenv
-import google.generativeai as genai
+# import google.generativeai as genai
 import logging
 from utils.compatibility_checker import check_compatibility
 from utils.summary_generator import generate_summary
