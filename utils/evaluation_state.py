@@ -19,6 +19,7 @@ class EvaluationState:
             return "Weak Candidate"
         return "Moderate Potential"
 
+
     def summary(self):
         recent = "\n".join(f"- {fb}" for fb in self.past_feedback[-3:])
         return f"Recent feedback:\n{recent}\nOverall impression: {self.overall_impression}"

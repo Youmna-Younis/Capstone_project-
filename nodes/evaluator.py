@@ -4,14 +4,14 @@
 import os
 import json
 import re
-from utils.gemini_utils import generate_response
+from utils.gemini_utils import Generate_response
 
-from utils.evaluation_state import EvaluationState  # ✅ import here
-from utils.state_schema import HRState
+# from utils.evaluation_state import EvaluationState  # ✅ import here
+from utils.state_schema import InterviewState
+from utils.evaluation_state import EvaluationState
 
-
-def evaluate_responses(state: HRState) -> HRState:
-    responses = state["responses"]
+def evaluate_responses(state) -> EvaluationState:
+    responses = state["candidate_responses"]
     eval_state = state.get("evaluation_state", EvaluationState())
 
     prompt = f"""
@@ -37,7 +37,8 @@ def evaluate_responses(state: HRState) -> HRState:
     # )
 
     # content = response.choices[0].message.content
-    content = generate_response(prompt)
+    config={"temperature":0.3}
+    content = Generate_response(prompt,config)
     json_block = re.search(r"\{.*\}", content, re.DOTALL)
     parsed = json.loads(json_block.group())
 

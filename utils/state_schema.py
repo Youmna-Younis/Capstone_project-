@@ -15,6 +15,7 @@ from typing import Optional, List, Dict
 from typing import Dict, List, Optional, TypedDict
 from typing import Annotated
 from langgraph.graph.message import add_messages
+from utils.evaluation_state import EvaluationState
 
 class BaseState(TypedDict):
     resume: str
@@ -46,6 +47,8 @@ class InterviewState(InterviewPreparationState):
     finished: bool
     Questions:List[str]
     Candidate_Response:List[str]
+    List[Dict[str, str]]  #  Each is {"question": ..., "answer": ...}
+    evaluation_state: Optional[EvaluationState]
 
 class FeedbackState(InterviewState):
     evaluation: Optional[Dict[str, str]]  # Stores evaluation results
