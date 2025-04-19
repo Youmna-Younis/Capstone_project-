@@ -6,7 +6,7 @@ from typing import Dict, List
 from utils.state_schema import InterviewState, InterviewPreparationState, EvaluationState
 from utils.gemini_utils import Generate_response
 from nodes.evaluator import evaluate_responses
-
+from utils.evaluation_state import EvaluationState
 logger = logging.getLogger(__name__)
 
 class InterviewManager:
@@ -18,7 +18,7 @@ class InterviewManager:
             "conversation_history": [],
             "questions": [],
             "candidate_responses": [],
-            "evaluations": []
+            "evaluations": [EvaluationState]
         }
         
     def _generate_llm_prompt(self, follow_up_instruction: str = "") -> str:
@@ -38,14 +38,14 @@ class InterviewManager:
         If the interview should end, respond with "END".
         """
     
-    def _handle_evaluation(self, response: str) -> Dict:
+    def _handle_evaluation(self, state) -> Dict:
         """Evaluate candidate response and generate follow-up instructions"""
-        evaluation = evaluate_responses(response)
-        self.state["evaluations"].append(evaluation["evaluation"])
+        evaluation = evaluate_responses( self.state)
+        self.state["evaluations"].append(evaluation)
         
         # Create temporary evaluation state for follow-up prompt
         #eval_state = EvaluationState({"evaluation": evaluation})
-        return self._generate_follow_up_prompt(evaluation["evaluation_state"])
+        return self._generate_follow_up_prompt(evaluation)
     
     def _generate_follow_up_prompt(self, eval_state: EvaluationState) -> str:
         """Generate context-aware follow-up prompt based on evaluation"""
@@ -71,7 +71,7 @@ class InterviewManager:
         print("\nStarting AI-Powered Interview...")
         follow_up = ""
         
-        while True:
+        for _ in range(2):
             # Generate context-aware question
             prompt = self._generate_llm_prompt(follow_up)
             llm_config = {"temperature": 0.7}
@@ -104,15 +104,17 @@ class InterviewManager:
         return {
             **self.state,
             "stage": "ready_for_evaluation",
-            "interview_summary": self._generate_summary()
+            "questions":self.state["questions"],
+            "candidate_responses":self.state["candidate_responses"],
+
         }
     
-    def _generate_summary(self) -> Dict:
-        """Create final interview summary"""
-        return {
-            "total_questions": len(self.state["questions"]),
-            "average_score": sum(e["score"] for e in self.state["evaluations"])/len(self.state["evaluations"]),
-            "strengths": [e["summary"] for e in self.state["evaluations"] if e["score"] > 0.7],
-            "weaknesses": [e["summary"] for e in self.state["evaluations"] if e["score"] < 0.4]
-        }
+    # def _generate_summary(self) -> Dict:
+    #     """Create final interview summary"""
+    #     return {
+    #         "total_questions": len(self.state["questions"]),
+    #         "average_score": sum(e["score"] for e in self.state["evaluations"])/len(self.state["evaluations"]),
+    #         "strengths": [e["summary"] for e in self.state["evaluations"] if e["score"] > 0.7],
+    #         "weaknesses": [e["summary"] for e in self.state["evaluations"] if e["score"] < 0.4]
+    #     }
 

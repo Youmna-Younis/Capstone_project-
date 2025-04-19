@@ -324,5 +324,12 @@ initial_state = InterviewPreparationState({
     
 interview = InterviewManager(initial_state)
 result = interview.conduct_interview()
+import pprint
 print(f"result : {result}")
-
+print("##################################################################")
+pprint(result["overall_impression"])
+# #Feedback
+# feedbackmsg=generate_feedback(result)
+# print(f"feedback  {feedbackmsg}")
+# report=report_generator(feedbackmsg)
+# print(f"GeneratedResponse {report} ")

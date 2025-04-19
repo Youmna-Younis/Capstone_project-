@@ -20,8 +20,8 @@ gemini_llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
 # A callable that uses Gemini to generate feedback
 def generate_feedback(inputs):
     
-    question = inputs["question"]
-    answer = inputs["answer"]
+    question = inputs["questions"]
+    answer = inputs["candidate_responses"]
     traits = inputs.get("desired_traits", "professionalism, clarity, problem-solving")
 
     feedback_prompt = PromptTemplate.from_template(
