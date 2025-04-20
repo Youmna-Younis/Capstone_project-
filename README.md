@@ -1,110 +1,130 @@
-# 🧠 AI HR Assistant – Project Plan & Timeline (April 7–20)
+# 🧠 Smart HR Assistant – AI-Powered Mock Interviewer
 
-## 📅 Timeline Overview
+**Smart HR Assistant** is an AI-powered platform designed to help job seekers land their dream jobs by simulating real-world interviews. This project is the **Capstone Project** for the **Gen AI Intensive Course**, where we applied cutting-edge Generative AI capabilities to build a system that provides personalized interview preparation. 
 
-| Date Range       | Phase                           | Key Activities                                                                 | Expected Output / Deliverables                                   |
-|------------------|----------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------|
-| **April 7**       | Research & Exploration          | - Conduct individual research on Gen AI in HR<br>- Study existing solutions and innovations<br>- Investigate technical approaches (e.g., agents, LLMs, prompt tuning) | Curated list of references, relevant tools, and potential use cases |
-| **April 8**       | Ideation & Planning Workshop    | - Team meeting to consolidate research<br>- Define use case, input/output flows<br>- Determine project scope and boundaries<br>- Finalize technical architecture & tool stack | Clearly defined project scope document<br>High-level system design<br>Task assignments |
-| **April 9–11**    | System Design & Initial Build   | - Set up development environment<br>- Implement core agents (e.g., resume parser, question generator)<br>- Begin building system logic | Functional agent prototypes<br>Basic working version of assistant logic |
-| **April 12–13**   | Feature Integration & Testing   | - Integrate agents into a unified flow<br>- Implement user interaction logic (role/company input)<br>- Conduct unit testing and flow validation | Working prototype with end-to-end data flow<br>Initial test cases completed |
-| **April 14–16**   | Enhancement & Documentation     | - Refine prompts (multi-shot, contextual)<br>- Polish UI/UX if applicable<br>- Document code and logic<br>- Start compiling technical notebook | Improved prompt quality<br>Well-documented codebase<br>Notebook draft |
-| **April 18**      | Internal Review & Evaluation    | - Team demo of current build<br>- Review deliverables against goals<br>- Identify bugs, gaps, or improvements<br>- Align on submission strategy | Reviewed and validated prototype<br>List of final tasks and bug fixes |
-| **April 19–20**   | Finalization & Submission       | - Final debugging and QA<br>- Finalize notebook with explanations and markdown<br>- Draft blogpost content<br>- Record and edit walkthrough video | Complete competition package:<br>• Notebook<br>• Blogpost<br>• Video<br>• Submission-ready repository |
+With just a resume and a job description, the system generates tailored interview questions, conducts a mock interview with "Sara" (our AI chatbot), and provides a detailed feedback report highlighting your strengths, weaknesses, and performance on each question.
 
 ---
 
-## ✅ Task Checklist by Phase
+## 🌟 Problem Statement
 
-### 📍 April 7 – Research & Exploration
-- [x] Identify Gen AI applications in HR  
-- [x] Research multi-agent systems  
-- [x] Collect tools, datasets, and technologies  
-- [x] Document findings in shared workspace  
+Job interviews can be intimidating, and many candidates struggle to prepare effectively. Traditional preparation methods often fail to provide personalized feedback or simulate the dynamic nature of real interviews. **Smart HR Assistant** solves this problem by offering:
 
----
+- A **personalized mock interview experience** tailored to your resume and the job description.
+- **Dynamic, AI-generated questions** that adapt to your responses.
+- A **comprehensive feedback report** to help you identify areas for improvement and boost your confidence.
 
-### 📍 April 8 – Ideation & Planning
-- [x] Conduct planning meeting  
-- [x] Define project scope and goals  
-- [x] Outline key features and limitations  
-- [x] Determine input/output for the assistant  
-- [x] Finalize technical stack and architecture  
-- [x] Assign roles and responsibilities  
+With **Smart HR Assistant**, you can practice interviews in a safe environment and gain the insights you need to excel in your next real-world interview.
 
 ---
 
-### 📍 April 9–11 – Initial Build
-- [x] Set up development environment
+## 🚀 Features
 
-### 🔹 Resume Parser Agent
-- [ ] Replace placeholder with actual resume parsing logic (skills, roles, projects)
-- [ ] Generate brief summarization about applicant  based on parsed resume
-- [ ] Return brief summarization list in clean structure (e.g., JSON)
+This project is built using **LangGraph**, where each feature is represented as an **Agent (Node)** in the graph. These agents work together to create a seamless interview preparation experience:
 
-### 🔹 Interviewer Agent
-- [ ] Build question-answer loop (ask → record → follow-up if needed)
-- [ ] Handle multiple questions dynamically
-- [ ] Integrate voice input/output cleanly (handle retries if audio fails)
-- [ ] Save transcript (question + answer) to pass to evaluator
+1. **Resume Parsing Agent**:
+   - Extracts key details (skills, education, experience) from uploaded resumes.
+   - Uses **Document Understanding** to analyze resumes in PDF format.
 
-### 🔹 Evaluator Agent
-- [ ] Analyze each response (clarity, relevance, confidence)
-- [ ] Score each question or provide a final score
-- [ ] Summarize strengths, weaknesses, and give **actionable feedback**
-- [ ] Return evaluation report in structured format
+2. **Job Description Analysis Agent**:
+   - Matches the candidate's profile with the job description.
+   - Uses **Grounding** to ensure the generated questions are relevant to the job role.
 
-### 🔹 Graph Improvements
-- [ ] Add memory (optional) or feedback loop for interviewer (if time allows)
-- [ ] Refactor state passing (resume → questions → responses → evaluation)
-- [ ] Add logging/debug support to test each node individually
+3. **AI-Powered Interview Agent**:
+   - Conducts a dynamic interview with "Sara," our conversational AI.
+   - Uses **Controlled Generation** and **Few-Shot Prompting** to generate tailored questions based on the candidate's profile.
 
-### 🔹 Optional Enhancements
-- [ ] Add Gemini model support (instead of OpenAI)
-- [ ] Design Streamlit UI or basic web interface for interaction
-- [ ] Save/export interview sessions as PDFs or JSON reports
+4. **Feedback Generation Agent**:
+   - Evaluates candidate responses and generates a detailed feedback report.
+   - Uses **Gen AI Evaluation** to assess responses and provide actionable insights.
+
+5. **Follow-Up Question Agent**:
+   - Dynamically generates follow-up questions based on the candidate's performance.
+   - Uses **Function Calling** to adaptively create questions that probe deeper into strengths or clarify weaknesses.
 
 ---
 
-### 📍 April 12–13 – Integration & Testing
-- [ ] Integrate all agents into a single workflow
-- [ ] Enable user input for role and company
-- [ ] Perform end-to-end testing of system
-- [ ] Log and fix integration issues
+## 🛠️ GenAI Capabilities Applied
+
+This project leverages the following **Generative AI capabilities**:
+
+- **Agents**: Each feature is implemented as an independent agent in the LangGraph framework.
+- **Controlled Generation**: Ensures that interview questions and feedback are structured and relevant.
+- **Few-Shot Prompting**: Provides context to the AI model for generating tailored questions.
+- **Document Understanding**: Extracts and processes information from resumes and job descriptions.
+- **Gen AI Evaluation**: Evaluates candidate responses to generate feedback.
+- **Grounding**: Ensures that the AI-generated content aligns with the job description and candidate profile.
+- **Long Context Window**: Handles extended conversations and maintains context throughout the interview process.
 
 ---
 
-### 📍 April 14–16 – Enhancement & Documentation
-- [ ] Optimize prompts (multi-shot, role-specific)
-- [ ] Add/clean up UI (optional but helpful)
-- [ ] Document codebase with clear comments
-- [ ] Draft technical notebook with markdown explanations
+## 🖼️ How It Works (Visual Workflow)
+
+1. **Upload Resume & Job Description**  
+   ![Upload Resume](placeholder-upload-resume.png)  
+   Upload your resume and paste the job description. The system analyzes your profile and prepares tailored questions.
+
+2. **Start the Interview**  
+   ![Start Interview](placeholder-start-interview.png)  
+   Begin the mock interview with "Sara." Answer questions dynamically generated based on your resume and the job description.
+
+3. **End the Interview & Generate Feedback**  
+   ![Feedback Report](placeholder-feedback-report.png)  
+   After completing the interview (press `q` to end), the system generates a feedback report showing your performance.
 
 ---
 
-### 📍 April 18 – Internal Review
-- [ ] Conduct team demo
-- [ ] Review scope vs. delivery
-- [ ] Finalize outstanding tasks
-- [ ] Identify any critical bugs or missing elements
+## 📂 Project Structure
 
----
+```plaintext
+/workspaces/Capstone_project-/
+├── UI/
+│   ├── mainApp.py              # Main entry point for the Streamlit app
+│   ├── uploadResume.py         # Handles resume and job description uploads
+│   ├── InterviewPage.py        # Conducts the interview with the AI interviewer
+│   ├── FeedbackPage.py         # Generates and displays feedback reports
+├── nodes/
+│   ├── resume_parser.py        # Extracts data from resumes
+│   ├── InterviewManager.py     # Manages the interview process
+│   ├── [interviewer.py](http://_vscodecontentref_/1)          # Handles interview logic and follow-up questions
+│   ├── feedback_generator.py   # Generates feedback for candidate responses
+│   ├── evaluator.py            # Evaluates candidate responses
+│   ├── Interview_Preparation.py # Prepares interview context
+├── utils/
+│   ├── gemini_utils.py         # Utility functions for interacting with Google Gemini API
+│   ├── state_schema.py         # Defines state schemas for the workflow
+│   ├── summary_generator.py    # Generates summaries from extracted data
+│   ├── data_extractor.py       # Extracts and parses data from resumes
+│   ├── compatibility_checker.py # Checks compatibility between resumes and job descriptions
+├── data/
+│   ├── candidate_resume.txt    # Sample resume data
+├── [requirements.txt](http://_vscodecontentref_/2)            # Python dependencies
+├── [setup.py](http://_vscodecontentref_/3)                    # Project setup configuration
+├── .env                        # Environment variables (e.g., API keys)
+├── [README.md](http://_vscodecontentref_/4)                   # Project documentation
+## 🚀 Getting Started
 
-### 📍 April 19–20 – Finalization & Submission
-- [ ] Final testing and bug fixes
-- [ ] Finalize and polish notebook
-- [ ] Write and edit blogpost
-- [ ] Record and narrate demo video
-- [ ] Submit all materials to competition portal
+### Prerequisites
 
----
+- Python 3.8 or higher
+- Google Gemini API Key (add it to the `.env` file)
 
-## 🏆 Competition Evaluation Criteria
+### Installation
 
-| Deliverable   | Weight / Multiplier          | Evaluation Focus                                                                 |
-|---------------|------------------------------|----------------------------------------------------------------------------------|
-| **Notebook**  | Max 10 points                | - Creativity & originality of use case<br>- Suitability of Gen AI<br>- Clarity of documentation and explanation<br>- End-to-end walkthrough of solution |
-| **Blogpost**  | Bonus multiplier (up to 1.5x)| - Communicates the problem and solution clearly<br>- Highlights implementation with code snippets<br>- Discusses limitations and future scope |
-| **Video**     | Bonus multiplier (up to 1.5x)| - Visuals with voiceover<br>- Balanced technical explanation and storytelling |
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-repo/smart-hr-assistant.git
+   cd smart-hr-assistant
 
-> **Judges**: Gen AI experts from Google (Engineering & Marketing)
+2. Install dependencies:
+  ```bash
+     pip install -r requirements.txt   cd smart-hr-assistant   
+
+3. Add your Google API key to the .env file:
+  ```bash
+     GOOGLE_API_KEY="your-google-api-key"     
+
+4. Run the application:
+   ```bash
+      streamlit run UI/mainApp.py
+   

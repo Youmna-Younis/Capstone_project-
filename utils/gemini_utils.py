@@ -3,17 +3,12 @@ from google import genai
 from google.genai import types
 # Configure Gemini API
 import os
+from dotenv import load_dotenv
 # import google.generativeai as genai
+load_dotenv()
+GOOGLE_API_KEY=os.getenv("GOOGLE_API_KEY")
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyBvE82VYWYZknp0g31a8WB6WvFQV_YbimE"
 
-# genai.configure() 
-GOOGLE_API_KEY="AIzaSyBvE82VYWYZknp0g31a8WB6WvFQV_YbimE"
-API_KEY = GOOGLE_API_KEY
-# genai.configure(api_key=API_KEY)
-# Initialize the Gemini model
-
-#model = genai.GenerativeModel('gemini-2.0-flash')
 client = genai.Client(api_key=GOOGLE_API_KEY)
 
 def generate_response(prompt):
@@ -38,3 +33,5 @@ def Generate_response(prompt,config):
 
     # response = model.generate_content(prompt)
     return response.text.strip()
+
+

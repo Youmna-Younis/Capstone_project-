@@ -35,6 +35,7 @@ class ResumeParsingState(BaseState):
 
 class InterviewPreparationState(ResumeParsingState):
     llm_context: str  # Context provided to the LLM for conducting the interview
+    candidate_info:Dict[str, str]
 
 class InterviewState(InterviewPreparationState):
    # conversation_history: List[Dict[str, str]]  # Tracks the conversation as {"role": "user/llm", "message": "text"}

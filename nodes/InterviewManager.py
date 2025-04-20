@@ -71,7 +71,7 @@ class InterviewManager:
         print("\nStarting AI-Powered Interview...")
         follow_up = ""
         
-        for _ in range(2):
+        while True:
             # Generate context-aware question
             prompt = self._generate_llm_prompt(follow_up)
             llm_config = {"temperature": 0.7}

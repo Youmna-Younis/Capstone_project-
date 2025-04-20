@@ -11,7 +11,7 @@ import re
 import json
 import os
 from utils.gemini_utils import *
-
+from utils.state_schema import InterviewPreparationState
 
 # GOOGLE_API_KEY = 'YOUR_API_KEY'
 
@@ -104,6 +104,51 @@ def clean_text(input_dict):
 def report_generator(feedback_message):
     feedback_dict = parse_feedback(feedback_message)
     cleaned = clean_text(feedback_dict)
-    report = json.dumps(x, indent=4)
-    with open("report.json", "w") as outfile:
-        outfile.write(report)
+    # report = json.dumps(, indent=4)
+    # # with open("report.json", "w") as outfile:
+    #     outfile.write(report)
+def generate_interview_report(state: InterviewPreparationState) -> str:
+    candidate_info = state.get("candidate_info", {})
+    questions = state.get("questions", [])
+    responses = state.get("candidate_responses", [])
+    evaluations = state.get("evaluations", [])
+
+    report_lines = []
+
+    # Header
+    report_lines.append("📋 INTERVIEW SUMMARY REPORT")
+    report_lines.append("=" * 40)
+
+    # Candidate Info
+    report_lines.append("\n👤 Candidate Info:")
+    for key, value in candidate_info.items():
+        report_lines.append(f"- {key.capitalize()}: {value}")
+
+    # Q&A Section
+    report_lines.append("\n🗣️ Interview Q&A:")
+    for i, (q, a) in enumerate(zip(questions, responses), 1):
+        report_lines.append(f"\nQuestion {i}: {q}")
+        report_lines.append(f"Answer {i}: {a}")
+
+    # Evaluation Section
+    report_lines.append("\n📊 Evaluation Summary:")
+    for i, eval_entry in enumerate(evaluations[1:], 1):  # Skip placeholder class at index 0
+        eval_data = eval_entry.get("evaluation", {})
+        summary = eval_data.get("summary", "No summary available.")
+        score = eval_data.get("score", "N/A")
+        impression = eval_data.get("overall_impression", "N/A")
+
+        report_lines.append(f"\nEvaluation Round {i}:")
+        report_lines.append(f"- Score: {score}")
+        report_lines.append(f"- Impression: {impression}")
+        report_lines.append(f"- Summary: {summary}")
+
+    # Final Impression
+    final_impression = evaluations[-1].get("evaluation", {}).get("overall_impression", "Neutral") \
+        if isinstance(evaluations[-1], dict) else "Neutral"
+    
+    report_lines.append("\n✅ Final Overall Impression:")
+    report_lines.append(f"{final_impression}")
+
+    return "\n".join(report_lines)
+        
