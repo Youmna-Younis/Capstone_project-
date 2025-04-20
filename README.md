@@ -1,3 +1,6 @@
+Here’s the updated README.md with a **User Manual** section added, including instructions for ending the interview by typing `q`:
+
+```markdown
 # 🧠 Smart HR Assistant – AI-Powered Mock Interviewer
 
 **Smart HR Assistant** is an AI-powered platform designed to help job seekers land their dream jobs by simulating real-world interviews. This project is the **Capstone Project** for the **Gen AI Intensive Course**, where we applied cutting-edge Generative AI capabilities to build a system that provides personalized interview preparation. 
@@ -22,25 +25,35 @@ With **Smart HR Assistant**, you can practice interviews in a safe environment a
 
 This project is built using **LangGraph**, where each feature is represented as an **Agent (Node)** in the graph. These agents work together to create a seamless interview preparation experience:
 
-1. **Resume Parsing Agent**:
+### **Agents (Nodes) in LangGraph**
+
+1. **Resume Parsing Agent** (`resume_parser.py`):
    - Extracts key details (skills, education, experience) from uploaded resumes.
    - Uses **Document Understanding** to analyze resumes in PDF format.
+   - Outputs structured data for compatibility checks and interview preparation.
 
-2. **Job Description Analysis Agent**:
+2. **Job Compatibility Checker Agent** (`compatibility_checker.py`):
    - Matches the candidate's profile with the job description.
    - Uses **Grounding** to ensure the generated questions are relevant to the job role.
+   - Provides a compatibility score and generates dynamic interview questions.
 
-3. **AI-Powered Interview Agent**:
+3. **Interview Preparation Agent** (`Interview_Preparation.py`):
+   - Prepares the interview context by combining resume data, job compatibility results, and static/dynamic questions.
+   - Creates a tailored context for the AI interviewer.
+
+4. **AI-Powered Interview Agent** (`interviewer.py`):
    - Conducts a dynamic interview with "Sara," our conversational AI.
    - Uses **Controlled Generation** and **Few-Shot Prompting** to generate tailored questions based on the candidate's profile.
+   - Maintains a conversation history for context-aware interactions.
 
-4. **Feedback Generation Agent**:
-   - Evaluates candidate responses and generates a detailed feedback report.
-   - Uses **Gen AI Evaluation** to assess responses and provide actionable insights.
+5. **Response Evaluation Agent** (`evaluator.py`):
+   - Evaluates candidate responses using **Gen AI Evaluation**.
+   - Scores responses on a scale of 0.0 to 1.0 and provides detailed feedback.
+   - Generates follow-up instructions based on the evaluation.
 
-5. **Follow-Up Question Agent**:
-   - Dynamically generates follow-up questions based on the candidate's performance.
-   - Uses **Function Calling** to adaptively create questions that probe deeper into strengths or clarify weaknesses.
+6. **Feedback Generation Agent** (`feedback_generator.py`):
+   - Generates a detailed feedback report summarizing the candidate's performance.
+   - Uses **Function Calling** to structure the report and highlight strengths, weaknesses, and overall impressions.
 
 ---
 
@@ -84,24 +97,27 @@ This project leverages the following **Generative AI capabilities**:
 │   ├── InterviewPage.py        # Conducts the interview with the AI interviewer
 │   ├── FeedbackPage.py         # Generates and displays feedback reports
 ├── nodes/
-│   ├── resume_parser.py        # Extracts data from resumes
-│   ├── InterviewManager.py     # Manages the interview process
-│   ├── [interviewer.py](http://_vscodecontentref_/1)          # Handles interview logic and follow-up questions
-│   ├── feedback_generator.py   # Generates feedback for candidate responses
-│   ├── evaluator.py            # Evaluates candidate responses
-│   ├── Interview_Preparation.py # Prepares interview context
+│   ├── resume_parser.py        # Resume Parsing Agent
+│   ├── compatibility_checker.py # Job Compatibility Checker Agent
+│   ├── Interview_Preparation.py # Interview Preparation Agent
+│   ├── interviewer.py          # AI-Powered Interview Agent
+│   ├── evaluator.py            # Response Evaluation Agent
+│   ├── feedback_generator.py   # Feedback Generation Agent
 ├── utils/
 │   ├── gemini_utils.py         # Utility functions for interacting with Google Gemini API
 │   ├── state_schema.py         # Defines state schemas for the workflow
 │   ├── summary_generator.py    # Generates summaries from extracted data
 │   ├── data_extractor.py       # Extracts and parses data from resumes
-│   ├── compatibility_checker.py # Checks compatibility between resumes and job descriptions
 ├── data/
 │   ├── candidate_resume.txt    # Sample resume data
-├── [requirements.txt](http://_vscodecontentref_/2)            # Python dependencies
-├── [setup.py](http://_vscodecontentref_/3)                    # Project setup configuration
+├── requirements.txt            # Python dependencies
+├── setup.py                    # Project setup configuration
 ├── .env                        # Environment variables (e.g., API keys)
-├── [README.md](http://_vscodecontentref_/4)                   # Project documentation
+├── README.md                   # Project documentation
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -115,16 +131,96 @@ This project leverages the following **Generative AI capabilities**:
    ```bash
    git clone https://github.com/your-repo/smart-hr-assistant.git
    cd smart-hr-assistant
+   ```
 
 2. Install dependencies:
-  ```bash
-     pip install -r requirements.txt   cd smart-hr-assistant   
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-3. Add your Google API key to the .env file:
-  ```bash
-     GOOGLE_API_KEY="your-google-api-key"     
+3. Add your Google API key to the `.env` file:
+   ```plaintext
+   GOOGLE_API_KEY="your-google-api-key"
+   ```
 
 4. Run the application:
    ```bash
-      streamlit run UI/mainApp.py
-   
+   streamlit run UI/mainApp.py
+   ```
+
+---
+
+## 📖 User Manual
+
+### **1. Upload Resume & Job Description**
+- Navigate to the **Upload Resume & Job Description** page.
+- Upload your resume (PDF format) and paste the job description into the provided field.
+
+### **2. Start the Interview**
+- Go to the **Start Interview with Sara** page.
+- The AI interviewer will ask dynamic questions based on your resume and job description.
+- Type your responses in the input field.
+
+### **3. End the Interview**
+- When you want to end the interview, simply type `q` and press Enter.
+- The system will stop the interview and proceed to generate a feedback report.
+
+### **4. View Feedback Report**
+- After the interview ends, navigate to the **Feedback Report** page.
+- Review your strengths, weaknesses, and overall performance.
+
+---
+
+## 🧪 Testing
+
+Run the following command to execute unit tests (if implemented):
+```bash
+pytest
+```
+
+---
+
+## 🏆 Future Enhancements
+
+- Add support for voice-based interviews.
+- Integrate advanced memory for follow-up questions.
+- Export interview sessions as PDF or JSON reports.
+- Support for additional AI models like OpenAI GPT.
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+   ```
+3. Commit your changes:
+   ```bash
+   git commit -m "Add new feature"
+   ```
+4. Push to the branch:
+   ```bash
+   git push origin feature-name
+   ```
+5. Open a pull request.
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📧 Contact
+
+For questions or feedback, please reach out to us at `your-email@example.com`.
+
+---
+
+Enjoy using **Smart HR Assistant**! 🎉
+```
