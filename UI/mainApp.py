@@ -6,6 +6,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from InterviewPage import run_interview  
 # from interview_logic import run_interview  # Placeholder if you have this function
+from FeedbackPage import Get_Report
 if "InterviewState" not in st.session_state:
     st.session_state.InterviewState = {
         "resume": None,
@@ -77,6 +78,12 @@ elif page == "📊 Feedback Report":
     - 📊 Strengths & Improvement Areas
     - 🎯 Personalized Interview Tips
     """)
-    
+    interview_state = st.session_state.interview_manager.state
+    # Check if interview is completed
+    if "interview_manager" not in st.session_state or not st.session_state.get("finished"):
+        st.warning("⚠️ Report not generated yet. Please complete the interview first.")
+        st.stop()
+    else:    
+           Get_Report(st.session_state.interview_manager.state)
     # Placeholder - replace with actual report display
     st.warning("Report not generated yet. Complete the interview first.")
