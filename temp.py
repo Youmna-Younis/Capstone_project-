@@ -52,7 +52,6 @@
 
 # # # from google import genai
 # # # Configure Gemini API
-# # # GOOGLE_API_KEY="AIzaSyBvE82VYWYZknp0g31a8WB6WvFQV_YbimE"
 # # # API_KEY = GOOGLE_API_KEY
 
 
