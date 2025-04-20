@@ -1,6 +1,3 @@
-Here’s the updated README.md with a **User Manual** section added, including instructions for ending the interview by typing `q`:
-
-```markdown
 # 🧠 Smart HR Assistant – AI-Powered Mock Interviewer
 
 **Smart HR Assistant** is an AI-powered platform designed to help job seekers land their dream jobs by simulating real-world interviews. This project is the **Capstone Project** for the **Gen AI Intensive Course**, where we applied cutting-edge Generative AI capabilities to build a system that provides personalized interview preparation. 
@@ -74,15 +71,15 @@ This project leverages the following **Generative AI capabilities**:
 ## 🖼️ How It Works (Visual Workflow)
 
 1. **Upload Resume & Job Description**  
-   ![Upload Resume](placeholder-upload-resume.png)  
+   ![Upload Resume](media/upload-resume.png)  
    Upload your resume and paste the job description. The system analyzes your profile and prepares tailored questions.
 
 2. **Start the Interview**  
-   ![Start Interview](placeholder-start-interview.png)  
+   ![Start Interview](media/start-interview.png)  
    Begin the mock interview with "Sara." Answer questions dynamically generated based on your resume and the job description.
 
 3. **End the Interview & Generate Feedback**  
-   ![Feedback Report](placeholder-feedback-report.png)  
+   ![Feedback Report](media/FeedbackReport.png)  
    After completing the interview (press `q` to end), the system generates a feedback report showing your performance.
 
 ---
@@ -92,31 +89,29 @@ This project leverages the following **Generative AI capabilities**:
 ```plaintext
 /workspaces/Capstone_project-/
 ├── UI/
-│   ├── mainApp.py              # Main entry point for the Streamlit app
-│   ├── uploadResume.py         # Handles resume and job description uploads
-│   ├── InterviewPage.py        # Conducts the interview with the AI interviewer
-│   ├── FeedbackPage.py         # Generates and displays feedback reports
+│   ├── [mainApp.py](http://_vscodecontentref_/1)              # Main entry point for the Streamlit app
+│   ├── [uploadResume.py](http://_vscodecontentref_/2)         # Handles resume and job description uploads
+│   ├── [InterviewPage.py](http://_vscodecontentref_/3)        # Conducts the interview with the AI interviewer
+│   ├── [FeedbackPage.py](http://_vscodecontentref_/4)         # Generates and displays feedback reports
 ├── nodes/
-│   ├── resume_parser.py        # Resume Parsing Agent
-│   ├── compatibility_checker.py # Job Compatibility Checker Agent
-│   ├── Interview_Preparation.py # Interview Preparation Agent
-│   ├── interviewer.py          # AI-Powered Interview Agent
-│   ├── evaluator.py            # Response Evaluation Agent
-│   ├── feedback_generator.py   # Feedback Generation Agent
+│   ├── [resume_parser.py](http://_vscodecontentref_/5)        # Resume Parsing Agent
+│   ├── [compatibility_checker.py](http://_vscodecontentref_/6) # Job Compatibility Checker Agent
+│   ├── [Interview_Preparation.py](http://_vscodecontentref_/7) # Interview Preparation Agent
+│   ├── [interviewer.py](http://_vscodecontentref_/8)          # AI-Powered Interview Agent
+│   ├── [evaluator.py](http://_vscodecontentref_/9)            # Response Evaluation Agent
+│   ├── [feedback_generator.py](http://_vscodecontentref_/10)   # Feedback Generation Agent
 ├── utils/
-│   ├── gemini_utils.py         # Utility functions for interacting with Google Gemini API
-│   ├── state_schema.py         # Defines state schemas for the workflow
-│   ├── summary_generator.py    # Generates summaries from extracted data
-│   ├── data_extractor.py       # Extracts and parses data from resumes
+│   ├── [gemini_utils.py](http://_vscodecontentref_/11)         # Utility functions for interacting with Google Gemini API
+│   ├── [state_schema.py](http://_vscodecontentref_/12)         # Defines state schemas for the workflow
+│   ├── [summary_generator.py](http://_vscodecontentref_/13)    # Generates summaries from extracted data
+│   ├── [data_extractor.py](http://_vscodecontentref_/14)       # Extracts and parses data from resumes
 ├── data/
-│   ├── candidate_resume.txt    # Sample resume data
-├── requirements.txt            # Python dependencies
-├── setup.py                    # Project setup configuration
+│   ├── [candidate_resume.txt](http://_vscodecontentref_/15)    # Sample resume data
+├── [requirements.txt](http://_vscodecontentref_/16)            # Python dependencies
+├── [setup.py](http://_vscodecontentref_/17)                    # Project setup configuration
 ├── .env                        # Environment variables (e.g., API keys)
-├── README.md                   # Project documentation
-```
+├── [README.md](http://_vscodecontentref_/18)                   # Project documentation
 
----
 
 ## 🚀 Getting Started
 
@@ -216,11 +211,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-## 📧 Contact
 
-For questions or feedback, please reach out to us at `your-email@example.com`.
 
----
 
-Enjoy using **Smart HR Assistant**! 🎉
-```
+##Enjoy using **Smart HR Assistant**! 🎉
