@@ -71,15 +71,15 @@ This project leverages the following **Generative AI capabilities**:
 ## 🖼️ How It Works (Visual Workflow)
 
 1. **Upload Resume & Job Description**  
-   ![Upload Resume](media/upload-resume.png)  
+   ![Upload Resume](Media/upload-resume.png)  
    Upload your resume and paste the job description. The system analyzes your profile and prepares tailored questions.
 
 2. **Start the Interview**  
-   ![Start Interview](media/start-interview.png)  
+   ![Start Interview](Media/start-interview.png)  
    Begin the mock interview with "Sara." Answer questions dynamically generated based on your resume and the job description.
 
 3. **End the Interview & Generate Feedback**  
-   ![Feedback Report](media/FeedbackReport.png)  
+   ![Feedback Report](Media/FeedbackReport.png)  
    After completing the interview (press `q` to end), the system generates a feedback report showing your performance.
 
 ---
