@@ -214,4 +214,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 
 
-Enjoy using **Smart HR Assistant**! 🎉
+Enjoy using **Smart HR Assistant**! :) 🎉
